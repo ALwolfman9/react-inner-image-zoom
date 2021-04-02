@@ -25,7 +25,8 @@ const InnerImageZoom = ({
   hideHint,
   className,
   afterZoomIn,
-  afterZoomOut
+  afterZoomOut,
+  imageZoomClick = 'image'
 }) => {
   const img = useRef(null);
   const zoomImg = useRef(null);
@@ -52,6 +53,8 @@ const InnerImageZoom = ({
   };
 
   const handleClick = (e) => {
+    e.stopPropagation();
+    
     if (isZoomed) {
       if (isTouch) {
         hideCloseButton && handleClose();
@@ -279,7 +282,7 @@ const InnerImageZoom = ({
       style={{ width: width }}
       ref={img}
       onTouchStart={isZoomed ? null : handleTouchStart}
-      onClick={handleClick}
+      onClick={(!!imageZoomClick && imageZoomClick === 'image') ? handleClick : null}
       onMouseEnter={isTouch ? null : handleMouseEnter}
       onMouseMove={currentMoveType === 'drag' || !isZoomed ? null : handleMouseMove}
       onMouseLeave={isTouch ? null : handleMouseLeave}
@@ -309,7 +312,10 @@ const InnerImageZoom = ({
         </Fragment>
       )}
 
-      {!hideHint && !isZoomed && <span className="iiz__btn iiz__hint"></span>}
+      {!hideHint && !isZoomed && <span 
+        className="iiz__btn iiz__hint"
+        onClick={(!!imageZoomClick && imageZoomClick === 'hint') ? handleClick : null}
+      />}
     </figure>
   );
 };
@@ -335,7 +341,8 @@ InnerImageZoom.propTypes = {
   hideHint: PropTypes.bool,
   className: PropTypes.string,
   afterZoomIn: PropTypes.func,
-  afterZoomOut: PropTypes.func
+  afterZoomOut: PropTypes.func,
+  imageZoomClick?: PropTypes.string
 };
 
 export default InnerImageZoom;
