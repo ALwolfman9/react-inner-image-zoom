@@ -87,8 +87,8 @@ var InnerImageZoom = function InnerImageZoom(_ref) {
   };
 
   var handleClick = function handleClick(e) {
+    debugger;
     e.stopPropagation();
-    e.preventDefault();
 
     if (isZoomed) {
       if (isTouch) {
@@ -299,7 +299,7 @@ var InnerImageZoom = function InnerImageZoom(_ref) {
     },
     ref: img,
     onTouchStart: isZoomed ? null : handleTouchStart,
-    onClick: zoomTypeTarget === 'image' ? handleClick : null,
+    onClick: zoomType === 'click' && zoomTypeTarget === 'image' ? handleClick : null,
     onMouseEnter: isTouch ? null : handleMouseEnter,
     onMouseMove: currentMoveType === 'drag' || !isZoomed ? null : handleMouseMove,
     onMouseLeave: isTouch ? null : handleMouseLeave
@@ -316,7 +316,7 @@ var InnerImageZoom = function InnerImageZoom(_ref) {
     isZoomed: isZoomed
   }), isActive && /*#__PURE__*/React.createElement(Fragment, null, isFullscreen ? /*#__PURE__*/React.createElement(FullscreenPortal, null, /*#__PURE__*/React.createElement(ZoomImage, zoomImageProps)) : /*#__PURE__*/React.createElement(ZoomImage, zoomImageProps)), !hideHint && !isZoomed && /*#__PURE__*/React.createElement("span", {
     className: "iiz__btn iiz__hint",
-    onClick: zoomTypeTarget === 'hint' ? handleClick : null
+    onClick: zoomType === 'click' && zoomTypeTarget === 'hint' ? handleClick : null
   }));
 };
 

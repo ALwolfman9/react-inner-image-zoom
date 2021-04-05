@@ -53,8 +53,8 @@ const InnerImageZoom = ({
   };
 
   const handleClick = (e) => {
+    debugger;
     e.stopPropagation();
-    e.preventDefault();
 
     if (isZoomed) {
       if (isTouch) {
@@ -283,7 +283,7 @@ const InnerImageZoom = ({
       style={{ width: width }}
       ref={img}
       onTouchStart={isZoomed ? null : handleTouchStart}
-      onClick={zoomTypeTarget === 'image' ? handleClick : null}
+      onClick={zoomType === 'click' && zoomTypeTarget === 'image' ? handleClick : null}
       onMouseEnter={isTouch ? null : handleMouseEnter}
       onMouseMove={currentMoveType === 'drag' || !isZoomed ? null : handleMouseMove}
       onMouseLeave={isTouch ? null : handleMouseLeave}
@@ -314,7 +314,10 @@ const InnerImageZoom = ({
       )}
 
       {!hideHint && !isZoomed && (
-        <span className="iiz__btn iiz__hint" onClick={zoomTypeTarget === 'hint' ? handleClick : null} />
+        <span
+          className="iiz__btn iiz__hint"
+          onClick={zoomType === 'click' && zoomTypeTarget === 'hint' ? handleClick : null}
+        />
       )}
     </figure>
   );
