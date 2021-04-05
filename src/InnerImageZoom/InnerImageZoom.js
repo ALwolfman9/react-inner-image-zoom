@@ -26,7 +26,7 @@ const InnerImageZoom = ({
   className,
   afterZoomIn,
   afterZoomOut,
-  imageZoomClick = 'image'
+  imageZoomClick = 'image',
 }) => {
   const img = useRef(null);
   const zoomImg = useRef(null);
@@ -54,7 +54,7 @@ const InnerImageZoom = ({
 
   const handleClick = (e) => {
     e.stopPropagation();
-    
+
     if (isZoomed) {
       if (isTouch) {
         hideCloseButton && handleClose();
@@ -105,7 +105,7 @@ const InnerImageZoom = ({
       e.pageX || e.changedTouches[0].pageX,
       e.pageY || e.changedTouches[0].pageY,
       zoomImg.current.offsetLeft,
-      zoomImg.current.offsetTop
+      zoomImg.current.offsetTop,
     );
 
     setIsDragging(true);
@@ -113,7 +113,7 @@ const InnerImageZoom = ({
     if (!isTouch) {
       imgProps.current.eventPosition = {
         x: e.pageX,
-        y: e.pageY
+        y: e.pageY,
       };
     }
   };
@@ -165,7 +165,7 @@ const InnerImageZoom = ({
       window.pageXOffset,
       window.pageYOffset,
       -imgProps.current.bounds.left,
-      -imgProps.current.bounds.top
+      -imgProps.current.bounds.top,
     );
     handleMouseMove({ pageX, pageY });
   };
@@ -181,11 +181,11 @@ const InnerImageZoom = ({
       changedTouches: [
         {
           pageX: initialPageX,
-          pageY: initialPageY
+          pageY: initialPageY,
         }
       ],
       preventDefault: () => {},
-      stopPropagation: () => {}
+      stopPropagation: () => {},
     });
   };
 
@@ -207,7 +207,7 @@ const InnerImageZoom = ({
       bounds: {},
       offsets: {},
       ratios: {},
-      eventPosition: {}
+      eventPosition: {},
     };
   };
 
@@ -217,7 +217,7 @@ const InnerImageZoom = ({
         width: window.innerWidth,
         height: window.innerHeight,
         left: 0,
-        top: 0
+        top: 0,
       };
     }
 
@@ -227,14 +227,14 @@ const InnerImageZoom = ({
   const getOffsets = (pageX, pageY, left, top) => {
     return {
       x: pageX - left,
-      y: pageY - top
+      y: pageY - top,
     };
   };
 
   const getRatios = (bounds, zoomImg) => {
     return {
       x: (zoomImg.offsetWidth - bounds.width) / bounds.width,
-      y: (zoomImg.offsetHeight - bounds.height) / bounds.height
+      y: (zoomImg.offsetHeight - bounds.height) / bounds.height,
     };
   };
 
@@ -251,7 +251,7 @@ const InnerImageZoom = ({
     onLoad: handleLoad,
     onDragStart: currentMoveType === 'drag' ? handleDragStart : null,
     onDragEnd: currentMoveType === 'drag' ? handleDragEnd : null,
-    onClose: !hideCloseButton && isTouch ? handleClose : null
+    onClose: !hideCloseButton && isTouch ? handleClose : null,
   };
 
   useEffect(() => {
@@ -282,7 +282,7 @@ const InnerImageZoom = ({
       style={{ width: width }}
       ref={img}
       onTouchStart={isZoomed ? null : handleTouchStart}
-      onClick={(!!imageZoomClick && imageZoomClick === 'image') ? handleClick : null}
+      onClick={!!imageZoomClick && imageZoomClick === 'image' ? handleClick : null}
       onMouseEnter={isTouch ? null : handleMouseEnter}
       onMouseMove={currentMoveType === 'drag' || !isZoomed ? null : handleMouseMove}
       onMouseLeave={isTouch ? null : handleMouseLeave}
@@ -312,10 +312,12 @@ const InnerImageZoom = ({
         </Fragment>
       )}
 
-      {!hideHint && !isZoomed && <span 
-        className="iiz__btn iiz__hint"
-        onClick={(!!imageZoomClick && imageZoomClick === 'hint') ? handleClick : null}
-      />}
+      {!hideHint && !isZoomed && (
+        <span
+          className="iiz__btn iiz__hint"
+          onClick={!!imageZoomClick && imageZoomClick === 'hint' ? handleClick : null}
+        />
+      )}
     </figure>
   );
 };
@@ -342,7 +344,7 @@ InnerImageZoom.propTypes = {
   className: PropTypes.string,
   afterZoomIn: PropTypes.func,
   afterZoomOut: PropTypes.func,
-  imageZoomClick?: PropTypes.string
+  imageZoomClick: PropTypes.string,
 };
 
 export default InnerImageZoom;
