@@ -32,9 +32,7 @@ var InnerImageZoom = function InnerImageZoom(_ref) {
       hideHint = _ref.hideHint,
       className = _ref.className,
       afterZoomIn = _ref.afterZoomIn,
-      afterZoomOut = _ref.afterZoomOut,
-      _ref$zoomTypeTarget = _ref.zoomTypeTarget,
-      zoomTypeTarget = _ref$zoomTypeTarget === void 0 ? 'image' : _ref$zoomTypeTarget;
+      afterZoomOut = _ref.afterZoomOut;
   var img = useRef(null);
   var zoomImg = useRef(null);
   var imgProps = useRef({});
@@ -87,7 +85,6 @@ var InnerImageZoom = function InnerImageZoom(_ref) {
   };
 
   var handleClick = function handleClick(e) {
-    debugger;
     e.stopPropagation();
 
     if (isZoomed) {
@@ -299,7 +296,7 @@ var InnerImageZoom = function InnerImageZoom(_ref) {
     },
     ref: img,
     onTouchStart: isZoomed ? null : handleTouchStart,
-    onClick: zoomType === 'click' && zoomTypeTarget === 'image' ? handleClick : null,
+    onClick: handleClick,
     onMouseEnter: isTouch ? null : handleMouseEnter,
     onMouseMove: currentMoveType === 'drag' || !isZoomed ? null : handleMouseMove,
     onMouseLeave: isTouch ? null : handleMouseLeave
@@ -315,8 +312,7 @@ var InnerImageZoom = function InnerImageZoom(_ref) {
     fadeDuration: fadeDuration,
     isZoomed: isZoomed
   }), isActive && /*#__PURE__*/React.createElement(Fragment, null, isFullscreen ? /*#__PURE__*/React.createElement(FullscreenPortal, null, /*#__PURE__*/React.createElement(ZoomImage, zoomImageProps)) : /*#__PURE__*/React.createElement(ZoomImage, zoomImageProps)), !hideHint && !isZoomed && /*#__PURE__*/React.createElement("span", {
-    className: "iiz__btn iiz__hint",
-    onClick: zoomType === 'click' && zoomTypeTarget === 'hint' ? handleClick : null
+    className: "iiz__btn iiz__hint"
   }));
 };
 
@@ -341,7 +337,6 @@ InnerImageZoom.propTypes = process.env.NODE_ENV !== "production" ? {
   hideHint: PropTypes.bool,
   className: PropTypes.string,
   afterZoomIn: PropTypes.func,
-  afterZoomOut: PropTypes.func,
-  zoomTypeTarget: PropTypes.string
+  afterZoomOut: PropTypes.func
 } : {};
 export default InnerImageZoom;
