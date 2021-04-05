@@ -33,8 +33,8 @@ var InnerImageZoom = function InnerImageZoom(_ref) {
       className = _ref.className,
       afterZoomIn = _ref.afterZoomIn,
       afterZoomOut = _ref.afterZoomOut,
-      _ref$imageZoomClick = _ref.imageZoomClick,
-      imageZoomClick = _ref$imageZoomClick === void 0 ? 'image' : _ref$imageZoomClick;
+      _ref$zoomTypeTarget = _ref.zoomTypeTarget,
+      zoomTypeTarget = _ref$zoomTypeTarget === void 0 ? 'image' : _ref$zoomTypeTarget;
   var img = useRef(null);
   var zoomImg = useRef(null);
   var imgProps = useRef({});
@@ -88,6 +88,7 @@ var InnerImageZoom = function InnerImageZoom(_ref) {
 
   var handleClick = function handleClick(e) {
     e.stopPropagation();
+    e.preventDefault();
 
     if (isZoomed) {
       if (isTouch) {
@@ -298,7 +299,7 @@ var InnerImageZoom = function InnerImageZoom(_ref) {
     },
     ref: img,
     onTouchStart: isZoomed ? null : handleTouchStart,
-    onClick: !!imageZoomClick && imageZoomClick === 'image' ? handleClick : null,
+    onClick: zoomTypeTarget === 'image' ? handleClick : null,
     onMouseEnter: isTouch ? null : handleMouseEnter,
     onMouseMove: currentMoveType === 'drag' || !isZoomed ? null : handleMouseMove,
     onMouseLeave: isTouch ? null : handleMouseLeave
@@ -315,7 +316,7 @@ var InnerImageZoom = function InnerImageZoom(_ref) {
     isZoomed: isZoomed
   }), isActive && /*#__PURE__*/React.createElement(Fragment, null, isFullscreen ? /*#__PURE__*/React.createElement(FullscreenPortal, null, /*#__PURE__*/React.createElement(ZoomImage, zoomImageProps)) : /*#__PURE__*/React.createElement(ZoomImage, zoomImageProps)), !hideHint && !isZoomed && /*#__PURE__*/React.createElement("span", {
     className: "iiz__btn iiz__hint",
-    onClick: !!imageZoomClick && imageZoomClick === 'hint' ? handleClick : null
+    onClick: zoomTypeTarget === 'hint' ? handleClick : null
   }));
 };
 
@@ -341,6 +342,6 @@ InnerImageZoom.propTypes = process.env.NODE_ENV !== "production" ? {
   className: PropTypes.string,
   afterZoomIn: PropTypes.func,
   afterZoomOut: PropTypes.func,
-  imageZoomClick: PropTypes.string
+  zoomTypeTarget: PropTypes.string
 } : {};
 export default InnerImageZoom;
